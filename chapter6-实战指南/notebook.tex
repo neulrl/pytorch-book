@@ -1,0 +1,493 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{????\_????}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{o}{!}ls \PYZhy{}R
+\end{Verbatim}
+
+
+    \subsection{深度学习程序架构}\label{ux6df1ux5ea6ux5b66ux4e60ux7a0bux5e8fux67b6ux6784}
+
+在做深度学习实验或项目时，为了得到最优的模型结果，中间往往需要很多次的尝试和修改。而合理的文件组织结构，以及一些小技巧可以极大地提高代码的易读易用性。根据我的个人经验，在从事大多数深度学习研究时，程序都需要实现以下几个功能：
+
+\begin{itemize}
+\tightlist
+\item
+  模型定义
+\item
+  数据处理和加载
+\item
+  训练模型（Train\&Validate）
+\item
+  训练过程的可视化
+\item
+  测试（Test/Inference）
+\end{itemize}
+
+    前面提到过，程序主要包含以下功能：
+
+\begin{itemize}
+\tightlist
+\item
+  模型定义
+\item
+  数据加载
+\item
+  训练和测试
+\end{itemize}
+
+首先来看程序文件的组织结构：
+
+\begin{verbatim}
+├── checkpoints/
+├── data/
+│   ├── __init__.py
+│   ├── dataset.py
+│   └── get_data.sh
+├── models/
+│   ├── __init__.py
+│   ├── AlexNet.py
+│   ├── BasicModule.py
+│   └── ResNet34.py
+└── utils/
+│   ├── __init__.py
+│   └── visualize.py
+├── config.py
+├── main.py
+├── requirements.txt
+├── README.md
+\end{verbatim}
+
+其中：
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{checkpoints/}：
+  用于保存训练好的模型，可使程序在异常退出后仍能重新载入模型，恢复训练
+\item
+  \texttt{data/}：数据相关操作，包括数据预处理、dataset实现等
+\item
+  \texttt{models/}：模型定义，可以有多个模型，例如上面的AlexNet和ResNet34，一个模型对应一个文件
+\item
+  \texttt{utils/}：可能用到的工具函数，在本次实验中主要是封装了可视化工具
+\item
+  \texttt{config.py}：配置文件，所有可配置的变量都集中在此，并提供默认值
+\item
+  \texttt{main.py}：主文件，训练和测试程序的入口，可通过不同的命令来指定不同的操作和参数
+\item
+  \texttt{requirements.txt}：程序依赖的第三方库
+\item
+  \texttt{README.md}：提供程序的必要说明
+\end{itemize}
+
+    \subsubsection{关于\_\_init\_\_.py}\label{ux5173ux4e8e__init__.py}
+
+可以看到，几乎每个文件夹下都有\texttt{\_\_init\_\_.py}，一个目录如果包含了\texttt{\_\_init\_\_.py}
+文件，那么它就变成了一个包（package）。\texttt{\_\_init\_\_.py}可以为空，也可以定义包的属性和方法，但其必须存在，其它程序才能从这个目录中导入相应的模块或函数。例如在\texttt{data/}文件夹下有\texttt{\_\_init\_\_.py}，则在\texttt{main.py}
+中就可以\texttt{from\ data.dataset\ import\ DogCat}。而如果在\texttt{\_\_init\_\_.py}中写入\texttt{from\ .dataset\ import\ DogCat}，则在main.py中就可以直接写为：\texttt{from\ data\ import\ DogCat}，或者\texttt{import\ data;\ dataset\ =\ data.DogCat}，相比于\texttt{from\ data.dataset\ import\ DogCat}更加便捷。
+
+    \subsubsection{数据加载}\label{ux6570ux636eux52a0ux8f7d}
+
+数据的相关处理主要保存在\texttt{data/dataset.py}中。关于数据加载的相关操作，在上一章中我们已经提到过，其基本原理就是使用\texttt{Dataset}提供数据集的封装，再使用\texttt{Dataloader}实现数据并行加载。Kaggle提供的数据包括训练集和测试集，而我们在实际使用中，还需专门从训练集中取出一部分作为验证集。对于这三类数据集，其相应操作也不太一样，而如果专门写三个\texttt{Dataset}，则稍显复杂和冗余，因此这里通过加一些判断来区分。对于训练集，我们希望做一些数据增强处理，如随机裁剪、随机翻转、加噪声等，而验证集和测试集则不需要。
+
+    数据加载的一些常用库
+
+\texttt{python\ import\ os\ from\ PIL\ import\ Image\ from\ torch.utils\ import\ data\ import\ numpy\ as\ np\ from\ torchvision\ import\ transforms\ as\ T}
+
+    \begin{Shaded}
+\begin{Highlighting}[]
+\ImportTok{import}\NormalTok{ os}
+\ImportTok{from}\NormalTok{ PIL }\ImportTok{import}\NormalTok{ Image}
+\ImportTok{from}\NormalTok{ torch.utils }\ImportTok{import}\NormalTok{ data}
+\ImportTok{import}\NormalTok{ numpy }\ImportTok{as}\NormalTok{ np}
+\ImportTok{from}\NormalTok{ torchvision }\ImportTok{import}\NormalTok{ transforms }\ImportTok{as}\NormalTok{ T}
+
+\KeywordTok{class}\NormalTok{ DogCat(data.Dataset):}
+    
+    \KeywordTok{def} \FunctionTok{__init__}\NormalTok{(}\VariableTok{self}\NormalTok{, root, transforms}\OperatorTok{=}\VariableTok{None}\NormalTok{, train}\OperatorTok{=}\VariableTok{True}\NormalTok{, test}\OperatorTok{=}\VariableTok{False}\NormalTok{):}
+        \CommentTok{'''}
+\CommentTok{        目标：获取所有图片地址，并根据训练、验证（train=True or False）、测试(test=True or False )划分数据}
+\CommentTok{        '''}
+        \VariableTok{self}\NormalTok{.test }\OperatorTok{=}\NormalTok{ test}
+\NormalTok{        imgs }\OperatorTok{=}\NormalTok{ [os.path.join(root, img) }\ControlFlowTok{for}\NormalTok{ img }\KeywordTok{in}\NormalTok{ os.listdir(root)] }\CommentTok{#获取root路径下所有文件或文件夹的名称并将其与root组合起来作为该文件的绝对路径存放                                                  #到imgs列表里}
+
+        \CommentTok{# test1: data/test1/8973.jpg}
+        \CommentTok{# train: data/train/cat.10004.jpg }
+        \ControlFlowTok{if} \VariableTok{self}\NormalTok{.test:}
+\NormalTok{            imgs }\OperatorTok{=} \BuiltInTok{sorted}\NormalTok{(imgs, key}\OperatorTok{=}\KeywordTok{lambda}\NormalTok{ x: }\BuiltInTok{int}\NormalTok{(x.split(}\StringTok{'.'}\NormalTok{)[}\OperatorTok{-}\DecValTok{2}\NormalTok{].split(}\StringTok{'/'}\NormalTok{)[}\OperatorTok{-}\DecValTok{1}\NormalTok{]))}\CommentTok{#应该是把x先分割开，再按分割后的数字排序，key是用来进行比较的元素}
+        \ControlFlowTok{else}\NormalTok{:}
+\NormalTok{            imgs }\OperatorTok{=} \BuiltInTok{sorted}\NormalTok{(imgs, key}\OperatorTok{=}\KeywordTok{lambda}\NormalTok{ x: }\BuiltInTok{int}\NormalTok{(x.split(}\StringTok{'.'}\NormalTok{)[}\OperatorTok{-}\DecValTok{2}\NormalTok{]))}
+                \CommentTok{#train文件的格文件名：'/home/lrl/pytorchlearning/pytorch-book/chapter6-实战指南/data/train/cat.8.jpg'}
+                \CommentTok{#所以实际上split('.')将文件名分成了3部分，而split('.')[-2]就是读取中间那两个.之间的数字，并按这个数字排序}
+                \CommentTok{#而test数据集采用split('.')[-2].split('/')[-1]先按/分割去最后一部分再按.取倒数第二部分}
+\NormalTok{        imgs_num }\OperatorTok{=} \BuiltInTok{len}\NormalTok{(imgs)}\CommentTok{#获取元素个数}
+        
+        \CommentTok{# 划分训练、验证集，验证:训练 = 3:7}
+        \ControlFlowTok{if} \VariableTok{self}\NormalTok{.test:}
+            \VariableTok{self}\NormalTok{.imgs }\OperatorTok{=}\NormalTok{ imgs}
+        \ControlFlowTok{elif}\NormalTok{ train:}
+            \VariableTok{self}\NormalTok{.imgs }\OperatorTok{=}\NormalTok{ imgs[:}\BuiltInTok{int}\NormalTok{(}\FloatTok{0.7}\OperatorTok{*}\NormalTok{imgs_num)]}
+        \ControlFlowTok{else}\NormalTok{ :}
+            \VariableTok{self}\NormalTok{.imgs }\OperatorTok{=}\NormalTok{ imgs[}\BuiltInTok{int}\NormalTok{(}\FloatTok{0.7}\OperatorTok{*}\NormalTok{imgs_num):]            }
+    
+        \ControlFlowTok{if}\NormalTok{ transforms }\KeywordTok{is} \VariableTok{None}\NormalTok{:}
+        
+            \CommentTok{# 数据转换操作，测试验证和训练的数据转换有所区别}
+            
+\NormalTok{            normalize }\OperatorTok{=}\NormalTok{ T.Normalize(mean }\OperatorTok{=}\NormalTok{ [}\FloatTok{0.485}\NormalTok{, }\FloatTok{0.456}\NormalTok{, }\FloatTok{0.406}\NormalTok{], }
+\NormalTok{                                     std }\OperatorTok{=}\NormalTok{ [}\FloatTok{0.229}\NormalTok{, }\FloatTok{0.224}\NormalTok{, }\FloatTok{0.225}\NormalTok{])}
+
+            \CommentTok{# 测试集和验证集}
+            \ControlFlowTok{if} \VariableTok{self}\NormalTok{.test }\KeywordTok{or} \KeywordTok{not}\NormalTok{ train: }
+                \VariableTok{self}\NormalTok{.transforms }\OperatorTok{=}\NormalTok{ T.Compose([}
+\NormalTok{                    T.Scale(}\DecValTok{224}\NormalTok{),}
+\NormalTok{                    T.CenterCrop(}\DecValTok{224}\NormalTok{),}
+\NormalTok{                    T.ToTensor(),}
+\NormalTok{                    normalize}
+\NormalTok{                ]) }
+            \CommentTok{# 训练集}
+            \ControlFlowTok{else}\NormalTok{ :}
+                \VariableTok{self}\NormalTok{.transforms }\OperatorTok{=}\NormalTok{ T.Compose([}
+\NormalTok{                    T.Scale(}\DecValTok{256}\NormalTok{),}
+\NormalTok{                    T.RandomSizedCrop(}\DecValTok{224}\NormalTok{),}
+\NormalTok{                    T.RandomHorizontalFlip(),}
+\NormalTok{                    T.ToTensor(),}
+\NormalTok{                    normalize}
+\NormalTok{                ]) }
+                
+        
+    \KeywordTok{def} \FunctionTok{__getitem__}\NormalTok{(}\VariableTok{self}\NormalTok{, index):}
+        \CommentTok{'''}
+\CommentTok{        返回一张图片的数据}
+\CommentTok{        对于测试集，没有label，返回图片id，如1000.jpg返回1000}
+\CommentTok{        '''}
+\NormalTok{        img_path }\OperatorTok{=} \VariableTok{self}\NormalTok{.imgs[index]}
+        \ControlFlowTok{if} \VariableTok{self}\NormalTok{.test: }
+\NormalTok{             label }\OperatorTok{=} \BuiltInTok{int}\NormalTok{(}\VariableTok{self}\NormalTok{.imgs[index].split(}\StringTok{'.'}\NormalTok{)[}\OperatorTok{-}\DecValTok{2}\NormalTok{].split(}\StringTok{'/'}\NormalTok{)[}\OperatorTok{-}\DecValTok{1}\NormalTok{])}
+        \ControlFlowTok{else}\NormalTok{: }
+\NormalTok{             label }\OperatorTok{=} \DecValTok{1} \ControlFlowTok{if} \StringTok{'dog'} \KeywordTok{in}\NormalTok{ img_path.split(}\StringTok{'/'}\NormalTok{)[}\OperatorTok{-}\DecValTok{1}\NormalTok{] }\ControlFlowTok{else} \DecValTok{0}
+\NormalTok{        data }\OperatorTok{=}\NormalTok{ Image.}\BuiltInTok{open}\NormalTok{(img_path)}
+\NormalTok{        data }\OperatorTok{=} \VariableTok{self}\NormalTok{.transforms(data)}
+        \ControlFlowTok{return}\NormalTok{ data, label}
+    
+    \KeywordTok{def} \FunctionTok{__len__}\NormalTok{(}\VariableTok{self}\NormalTok{):}
+        \CommentTok{'''}
+\CommentTok{        返回数据集中所有图片的个数}
+\CommentTok{        '''}
+        \ControlFlowTok{return} \BuiltInTok{len}\NormalTok{(}\VariableTok{self}\NormalTok{.imgs)}
+\end{Highlighting}
+\end{Shaded}
+
+    \subsubsection{数据加载部分步骤的总结}\label{ux6570ux636eux52a0ux8f7dux90e8ux5206ux6b65ux9aa4ux7684ux603bux7ed3}
+
+\begin{itemize}
+\tightlist
+\item
+  加载常用库，设置读取图片的类，继承于torch.utils.data.Dataset，主要参数有，数据集路径，判断是训练验证还是测试集，是否进行数据格式转换，
+\item
+  构造函数部分，读入图片存储地址并排序后存放到一个列表里（按什么排序？数据没下完之前也不知道）采用spilt函数分割文件名
+\item
+  划分训练，验证，测试集
+\item
+  设置训练集与验证测试集不同的数据转换方式
+\item
+  设置\texttt{\_\_getitem\_\_()}返回一张图片的数据：读取列表中存储的地址，分别取出data与label，转换data数据格式，返回data,label
+\item
+  设置\texttt{\_\_len\_\_()},返回数据集中所有图片的个数
+\end{itemize}
+
+    采用\texttt{\_\_getitem\_\_()}加载图片的原因：
+
+DataLoader里面并没有太多的魔法方法，它封装了Python的标准库\texttt{multiprocessing}，使其能够实现多进程加速。在此提几点关于Dataset和DataLoader使用方面的建议：
+1. 高负载的操作放在\texttt{\_\_getitem\_\_}中，如加载图片等。 2.
+dataset中应尽量只包含只读对象，避免修改任何可变对象，利用多线程进行操作。
+
+第一点是因为多进程会并行的调用\texttt{\_\_getitem\_\_}函数，将负载高的放在\texttt{\_\_getitem\_\_}函数中能够实现并行加速。
+第二点是因为dataloader使用多进程加载，如果在\texttt{Dataset}实现中使用了可变对象，可能会有意想不到的冲突。在多线程/多进程中，修改一个可变对象，需要加锁，但是dataloader的设计使得其很难加锁（在实际使用中也应尽量避免锁的存在），因此最好避免在dataset中修改可变对象。例如下面就是一个不好的例子，在多进程处理中\texttt{self.num}可能与预期不符，这种问题不会报错，因此难以发现。如果一定要修改可变对象，建议使用Python标准库\texttt{Queue}中的相关数据结构。
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}

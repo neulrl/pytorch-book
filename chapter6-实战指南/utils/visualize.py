@@ -39,8 +39,8 @@ class Visualizer(object):
         '''
         self.plot('loss',1.00)
         '''
-        x = self.index.get(name, 0)
-        self.vis.line(Y=np.array([y]), X=np.array([x]),
+        x = self.index.get(name, 0)#检索index 字典里是否有存储‘loss’的值，没有的话，设为0
+        self.vis.line(Y=np.array([y]), X=np.array([x]),#
                       win=name,
                       opts=dict(title=name),
                       update=None if x == 0 else 'append',

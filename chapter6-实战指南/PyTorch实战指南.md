@@ -96,16 +96,16 @@ class DogCat(data.Dataset):
         目标：获取所有图片地址，并根据训练、验证、测试划分数据
         '''
         self.test = test
-        imgs = [os.path.join(root, img) for img in os.listdir(root)] 
+        imgs = [os.path.join(root, img) for img in os.listdir(root)] #获取root路径下所有文件或文件夹的名称并将其与root组合起来作为该文件的绝对路径存放                                                  #到imgs列表里
 
         # test1: data/test1/8973.jpg
         # train: data/train/cat.10004.jpg 
         if self.test:
-            imgs = sorted(imgs, key=lambda x: int(x.split('.')[-2].split('/')[-1]))
+            imgs = sorted(imgs, key=lambda x: int(x.split('.')[-2].split('/')[-1]))#应该是把x先分割开，再按分割后的数字排序，key是用来进行比较的元素
         else:
             imgs = sorted(imgs, key=lambda x: int(x.split('.')[-2]))
             
-        imgs_num = len(imgs)
+        imgs_num = len(imgs)#获取元素个数
         
         # 划分训练、验证集，验证:训练 = 3:7
         if self.test:
@@ -203,6 +203,7 @@ class BasicModule(t.nn.Module):
         if name is None:
             prefix = 'checkpoints/' + self.model_name + '_'
             name = time.strftime(prefix + '%m%d_%H:%M:%S.pth')
+            #Python time strftime() 函数接收以时间元组，并返回以可读字符串表示的当地时间，格式由参数format决定。
         t.save(self.state_dict(), name)
         return name
 ```
@@ -363,7 +364,7 @@ class DefaultConfig(object):
 
 这样我们在程序中就可以这样使用：
 
-```
+``` 
 import models
 from config import DefaultConfig
 
@@ -376,6 +377,7 @@ dataset = DogCat(opt.train_data_root)
 这些都只是默认参数，在这里还提供了更新函数，根据字典更新配置参数。
 
 ```
+python
 def parse(self, kwargs):
         '''
         根据字典kwargs 更新 config参数
@@ -489,22 +491,22 @@ if __name__=='__main__':
 ```python
 def train(**kwargs):
     
-    # 根据命令行参数更新配置
+    # 根据命令行参数更新配置，kwargs取自命令行参数，如果命令行参数没有就是用config文件里的
     opt.parse(kwargs)
-    vis = Visualizer(opt.env)
+    vis = Visualizer(opt.env)#设置visdom环境
     
-    # step1: 模型
-    model = getattr(models, opt.model)()
+    # step1: 定义卷积神经网络模型
+    model = getattr(models, opt.model)()#取出与配置参数中的模型名一致的models文件夹下卷积神经网络架构(一般是model.py文件)
     if opt.load_model_path:
-        model.load(opt.load_model_path)
+        model.load(opt.load_model_path)#这里加载的是存储网络模型各层权重的pth文件
     if opt.use_gpu: model.cuda()
 
     # step2: 数据
-    train_data = DogCat(opt.train_data_root,train=True)
-    val_data = DogCat(opt.train_data_root,train=False)
+    train_data = DogCat(opt.train_data_root,train=True)#传入训练集地址
+    val_data = DogCat(opt.train_data_root,train=False)#传入验证集地址
     train_dataloader = DataLoader(train_data,opt.batch_size,
                         shuffle=True,
-                        num_workers=opt.num_workers)
+                        num_workers=opt.num_workers)#
     val_dataloader = DataLoader(val_data,opt.batch_size,
                         shuffle=False,
                         num_workers=opt.num_workers)
@@ -652,6 +654,9 @@ def test(**kwargs):
 	        (score)[:,1].data.tolist()      
         batch_results = [(path_,probability_) \
 	        for path_,probability_ in zip(path,probability) ]
+            #zip() 函数用于将可迭代的对象作为参数，将对象中对应的元素打包成一个个元组，然后返回由这些元组组成的列表。
+#如果各个迭代器的元素个数不一致，则返回列表长度与最短的对象相同，利用 * 号操作符，可以将元组解压为列表。
+                                        #这里的path应该是索引号
         results += batch_results
     write_csv(results,opt.result_file)
     return results

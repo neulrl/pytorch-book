@@ -1,0 +1,752 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{ch5\_summary}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{pytorch读取数据方法总结}\label{pytorchux8bfbux53d6ux6570ux636eux65b9ux6cd5ux603bux7ed3}
+
+\subsection{首先，将数据集读取为dataset对象}\label{ux9996ux5148ux5c06ux6570ux636eux96c6ux8bfbux53d6ux4e3adatasetux5bf9ux8c61}
+
+\subsubsection{数据加载方式}\label{ux6570ux636eux52a0ux8f7dux65b9ux5f0f}
+
+在PyTorch中，数据加载可通过自定义的数据集对象。此时数据集对象被抽象为\texttt{Dataset}类，实现自定义的数据集需要继承Dataset，并实现两个Python魔法方法：
+-
+\texttt{\_\_getitem\_\_}：返回一条数据，或一个样本。\texttt{obj{[}index{]}}等价于\texttt{obj.\_\_getitem\_\_(index)}
+-
+\texttt{\_\_len\_\_}：返回样本的数量。\texttt{len(obj)}等价于\texttt{obj.\_\_len\_\_()}
+
+但是，以上的方法不好，建议采用\texttt{ImageFolder}类加载函数，如果想自己定义，可以采用类似一下DogCat类的方法定义函数
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k+kn}{import} \PY{n+nn}{os}
+        \PY{k+kn}{from} \PY{n+nn}{PIL} \PY{k}{import}  \PY{n}{Image}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{from} \PY{n+nn}{torchvision} \PY{k}{import} \PY{n}{transforms} \PY{k}{as} \PY{n}{T}
+        
+        \PY{n}{transform} \PY{o}{=} \PY{n}{T}\PY{o}{.}\PY{n}{Compose}\PY{p}{(}\PY{p}{[}
+            \PY{n}{T}\PY{o}{.}\PY{n}{Resize}\PY{p}{(}\PY{l+m+mi}{224}\PY{p}{)}\PY{p}{,} \PY{c+c1}{\PYZsh{} 缩放图片(Image)，保持长宽比不变，最短边为224像素}
+            \PY{n}{T}\PY{o}{.}\PY{n}{CenterCrop}\PY{p}{(}\PY{l+m+mi}{224}\PY{p}{)}\PY{p}{,} \PY{c+c1}{\PYZsh{} 从图片中间切出224*224的图片}
+            \PY{n}{T}\PY{o}{.}\PY{n}{ToTensor}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{c+c1}{\PYZsh{} 将图片(Image)转成Tensor，归一化至[0, 1]}
+            \PY{n}{T}\PY{o}{.}\PY{n}{Normalize}\PY{p}{(}\PY{n}{mean}\PY{o}{=}\PY{p}{[}\PY{o}{.}\PY{l+m+mi}{5}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{5}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{,} \PY{n}{std}\PY{o}{=}\PY{p}{[}\PY{o}{.}\PY{l+m+mi}{5}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{5}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{)} \PY{c+c1}{\PYZsh{} 标准化至[\PYZhy{}1, 1]，规定均值和标准差}
+        \PY{p}{]}\PY{p}{)}
+        
+        \PY{k}{class} \PY{n+nc}{DogCat}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{Dataset}\PY{p}{)}\PY{p}{:}
+            \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{root}\PY{p}{,} \PY{n}{transforms}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}\PY{p}{:}
+                \PY{n}{imgs} \PY{o}{=} \PY{n}{os}\PY{o}{.}\PY{n}{listdir}\PY{p}{(}\PY{n}{root}\PY{p}{)}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{imgs} \PY{o}{=} \PY{p}{[}\PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{root}\PY{p}{,} \PY{n}{img}\PY{p}{)} \PY{k}{for} \PY{n}{img} \PY{o+ow}{in} \PY{n}{imgs}\PY{p}{]}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{transforms}\PY{o}{=}\PY{n}{transforms}
+                
+            \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}getitem\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{index}\PY{p}{)}\PY{p}{:}
+                \PY{n}{img\PYZus{}path} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{imgs}\PY{p}{[}\PY{n}{index}\PY{p}{]}
+                \PY{n}{label} \PY{o}{=} \PY{l+m+mi}{0} \PY{k}{if} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dog}\PY{l+s+s1}{\PYZsq{}} \PY{o+ow}{in} \PY{n}{img\PYZus{}path}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]} \PY{k}{else} \PY{l+m+mi}{1}
+                \PY{n}{data} \PY{o}{=} \PY{n}{Image}\PY{o}{.}\PY{n}{open}\PY{p}{(}\PY{n}{img\PYZus{}path}\PY{p}{)}
+                \PY{k}{if} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{transforms}\PY{p}{:}
+                    \PY{n}{data} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{transforms}\PY{p}{(}\PY{n}{data}\PY{p}{)}
+                \PY{k}{return} \PY{n}{data}\PY{p}{,} \PY{n}{label}
+            
+            \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}len\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                \PY{k}{return} \PY{n+nb}{len}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{imgs}\PY{p}{)}
+        
+        \PY{n}{dataset} \PY{o}{=} \PY{n}{DogCat}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./data/dogcat/}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{transforms}\PY{o}{=}\PY{n}{transform}\PY{p}{)}
+        \PY{n}{img}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{n}{dataset}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+        \PY{k}{for} \PY{n}{img}\PY{p}{,} \PY{n}{label} \PY{o+ow}{in} \PY{n}{dataset}\PY{p}{:}
+            \PY{n+nb}{print}\PY{p}{(}\PY{n}{img}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{label}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsubsection{\texorpdfstring{\texttt{ImageFolder}使用方法}{ImageFolder使用方法}}\label{imagefolderux4f7fux7528ux65b9ux6cd5}
+
+\texttt{ImageFolder}假设所有的文件按文件夹保存，每个文件夹下存储同一个类别的图片，文件夹名为类名，其构造函数如下：
+
+\begin{verbatim}
+ImageFolder(root, transform=None, target_transform=None, loader=default_loader)
+\end{verbatim}
+
+它主要有四个参数： - \texttt{root}：在root指定的路径下寻找图片 -
+\texttt{transform}：对PIL
+Image进行的转换操作，transform的输入是使用loader读取图片的返回对象 -
+\texttt{target\_transform}：对label的转换 -
+\texttt{loader}：给定路径后如何读取图片，默认读取为RGB格式的PIL
+Image对象
+
+label是按照文件夹名顺序排序后存成字典，即\{类名:类序号(从0开始)\}，一般来说最好直接将文件夹命名为从0开始的数字，这样会和ImageFolder实际的label一致，如果不是这种命名规范，建议看看\texttt{self.class\_to\_idx}属性以了解label和文件夹名的映射关系。
+
+    \subsubsection{\texorpdfstring{\texttt{transforms}使用方法}{transforms使用方法}}\label{transformsux4f7fux7528ux65b9ux6cd5}
+
+其中\texttt{transforms}模块提供了对PIL
+\texttt{Image}对象和\texttt{Tensor}对象的常用操作。
+
+对PIL Image的操作包括： - \texttt{Scale}：调整图片尺寸，长宽比保持不变 -
+\texttt{CenterCrop}、\texttt{RandomCrop}、\texttt{RandomSizedCrop}：
+裁剪图片 - \texttt{Pad}：填充 - \texttt{ToTensor}：将PIL
+Image对象转成Tensor，会自动将{[}0, 255{]}归一化至{[}0, 1{]}
+
+对Tensor的操作包括： - Normalize：标准化，即减均值，除以标准差 -
+ToPILImage：将Tensor转为PIL Image对象
+
+如果要对图片进行多个操作，可通过\texttt{Compose}函数将这些操作拼接起来，类似于\texttt{nn.Sequential}。注意，这些操作定义后是以函数的形式存在，真正使用时需调用它的\texttt{\_\_call\_\_}方法，这点类似于\texttt{nn.Module}。例如要将图片调整为\(224\times 224\)，首先应构建这个操作\texttt{trans\ =\ Resize((224,\ 224))}，然后调用\texttt{trans(img)}。下面我们就用transforms的这些操作来优化上面实现的dataset。
+
+示例如下：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k+kn}{import} \PY{n+nn}{os}
+        \PY{k+kn}{from} \PY{n+nn}{PIL} \PY{k}{import}  \PY{n}{Image}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{from} \PY{n+nn}{torchvision} \PY{k}{import} \PY{n}{transforms} \PY{k}{as} \PY{n}{T}
+        \PY{n}{transform} \PY{o}{=} \PY{n}{T}\PY{o}{.}\PY{n}{Compose}\PY{p}{(}\PY{p}{[}
+            \PY{n}{T}\PY{o}{.}\PY{n}{Resize}\PY{p}{(}\PY{l+m+mi}{224}\PY{p}{)}\PY{p}{,} \PY{c+c1}{\PYZsh{} 缩放图片(Image)，保持长宽比不变，最短边为224像素}
+            \PY{n}{T}\PY{o}{.}\PY{n}{CenterCrop}\PY{p}{(}\PY{l+m+mi}{224}\PY{p}{)}\PY{p}{,} \PY{c+c1}{\PYZsh{} 从图片中间切出224*224的图片}
+            \PY{n}{T}\PY{o}{.}\PY{n}{ToTensor}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{c+c1}{\PYZsh{} 将图片(Image)转成Tensor，归一化至[0, 1]}
+            \PY{n}{T}\PY{o}{.}\PY{n}{Normalize}\PY{p}{(}\PY{n}{mean}\PY{o}{=}\PY{p}{[}\PY{o}{.}\PY{l+m+mi}{5}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{5}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{,} \PY{n}{std}\PY{o}{=}\PY{p}{[}\PY{o}{.}\PY{l+m+mi}{5}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{5}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{)} \PY{c+c1}{\PYZsh{} 标准化至[\PYZhy{}1, 1]，规定均值和标准差}
+        \PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    torchvision还提供了两个常用的函数。一个是\texttt{make\_grid}，它能将多张图片拼接成一个网格中；另一个是\texttt{save\_img}，它能将Tensor保存成图片。
+
+    \subsubsection{常用的查看ImageFolder属性的方法：}\label{ux5e38ux7528ux7684ux67e5ux770bimagefolderux5c5eux6027ux7684ux65b9ux6cd5}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{}读取数据}
+        \PY{n}{dataset} \PY{o}{=} \PY{n}{ImageFolder}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data/dogcat\PYZus{}2/}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} cat文件夹的图片对应label 0，dog对应1}
+        \PY{n}{dataset}\PY{o}{.}\PY{n}{class\PYZus{}to\PYZus{}idx}
+        \PY{c+c1}{\PYZsh{} 所有图片的路径和对应的label}
+        \PY{n}{dataset}\PY{o}{.}\PY{n}{imgs}
+        \PY{c+c1}{\PYZsh{} 没有任何的transform，所以返回的还是PIL Image对象}
+        \PY{n}{dataset}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{c+c1}{\PYZsh{} 第一维是第几张图，第二维为1返回label}
+        \PY{n}{dataset}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{c+c1}{\PYZsh{} 为0返回图片数据}
+        
+        \PY{c+c1}{\PYZsh{} 加上transform的数据读取取方式}
+        \PY{n}{normalize} \PY{o}{=} \PY{n}{T}\PY{o}{.}\PY{n}{Normalize}\PY{p}{(}\PY{n}{mean}\PY{o}{=}\PY{p}{[}\PY{l+m+mf}{0.4}\PY{p}{,} \PY{l+m+mf}{0.4}\PY{p}{,} \PY{l+m+mf}{0.4}\PY{p}{]}\PY{p}{,} \PY{n}{std}\PY{o}{=}\PY{p}{[}\PY{l+m+mf}{0.2}\PY{p}{,} \PY{l+m+mf}{0.2}\PY{p}{,} \PY{l+m+mf}{0.2}\PY{p}{]}\PY{p}{)}
+        \PY{n}{transform}  \PY{o}{=} \PY{n}{T}\PY{o}{.}\PY{n}{Compose}\PY{p}{(}\PY{p}{[}
+                 \PY{n}{T}\PY{o}{.}\PY{n}{RandomResizedCrop}\PY{p}{(}\PY{l+m+mi}{224}\PY{p}{)}\PY{p}{,}
+                 \PY{n}{T}\PY{o}{.}\PY{n}{RandomHorizontalFlip}\PY{p}{(}\PY{p}{)}\PY{p}{,}
+                 \PY{n}{T}\PY{o}{.}\PY{n}{ToTensor}\PY{p}{(}\PY{p}{)}\PY{p}{,}
+                 \PY{n}{normalize}\PY{p}{,}
+        \PY{p}{]}\PY{p}{)}
+        \PY{n}{dataset} \PY{o}{=} \PY{n}{ImageFolder}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data/dogcat\PYZus{}2/}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{transform}\PY{o}{=}\PY{n}{transform}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsection{用DataLoader将读取到的dataset转化为minibatch}\label{ux7528dataloaderux5c06ux8bfbux53d6ux5230ux7684datasetux8f6cux5316ux4e3aminibatch}
+
+\subsubsection{dataloader}\label{dataloader}
+
+DataLoader的函数定义如下：
+\texttt{DataLoader(dataset,\ batch\_size=1,\ shuffle=False,\ sampler=None,\ num\_workers=0,\ collate\_fn=default\_collate,\ pin\_memory=False,\ drop\_last=False)}
+
+\begin{itemize}
+\tightlist
+\item
+  dataset：加载的数据集(Dataset对象)
+\item
+  batch\_size：batch size
+\item
+  shuffle:：是否将数据打乱
+\item
+  sampler： 样本抽样，后续会详细介绍
+\item
+  num\_workers：使用多进程加载的进程数，0代表不使用多进程
+\item
+  collate\_fn：
+  如何将多个样本数据拼接成一个batch，一般使用默认的拼接方式即可
+\item
+  pin\_memory：是否将数据保存在pin memory区，pin
+  memory中的数据转到GPU会快一些
+\item
+  drop\_last：dataset中的数据个数可能不是batch\_size的整数倍，drop\_last为True会将多出来不足一个batch的数据丢弃
+\end{itemize}
+
+    dataloader是一个可迭代的对象，意味着我们可以像使用迭代器一样使用它，例如：
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{for}\NormalTok{ batch_datas, batch_labels }\KeywordTok{in}\NormalTok{ dataloader:}
+\NormalTok{    train()}
+\end{Highlighting}
+\end{Shaded}
+
+或
+
+\begin{verbatim}
+dataiter = iter(dataloader)
+batch_datas, batch_labesl = next(dataiter)
+\end{verbatim}
+
+    DataLoader里面并没有太多的魔法方法，它封装了Python的标准库\texttt{multiprocessing}，使其能够实现多进程加速。在此提几点关于Dataset和DataLoader使用方面的建议：
+1. 高负载的操作放在\texttt{\_\_getitem\_\_}中，如加载图片等。 2.
+dataset中应尽量只包含只读对象，避免修改任何可变对象，利用多线程进行操作。
+
+第一点是因为多进程会并行的调用\texttt{\_\_getitem\_\_}函数，将负载高的放在\texttt{\_\_getitem\_\_}函数中能够实现并行加速。
+第二点是因为dataloader使用多进程加载，如果在\texttt{Dataset}实现中使用了可变对象，可能会有意想不到的冲突。在多线程/多进程中，修改一个可变对象，需要加锁，但是dataloader的设计使得其很难加锁（在实际使用中也应尽量避免锁的存在），因此最好避免在dataset中修改可变对象。例如下面就是一个不好的例子，在多进程处理中\texttt{self.num}可能与预期不符，这种问题不会报错，因此难以发现。如果一定要修改可变对象，建议使用Python标准库\texttt{Queue}中的相关数据结构。
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{class}\NormalTok{ BadDataset(Dataset):}
+    \KeywordTok{def} \FunctionTok{__init__}\NormalTok{(}\VariableTok{self}\NormalTok{):}
+        \VariableTok{self}\NormalTok{.datas }\OperatorTok{=} \BuiltInTok{range}\NormalTok{(}\DecValTok{100}\NormalTok{)}
+        \VariableTok{self}\NormalTok{.num }\OperatorTok{=} \DecValTok{0} \CommentTok{# 取数据的次数}
+    \KeywordTok{def} \FunctionTok{__getitem__}\NormalTok{(}\VariableTok{self}\NormalTok{, index):}
+        \VariableTok{self}\NormalTok{.num }\OperatorTok{+=} \DecValTok{1}
+        \ControlFlowTok{return} \VariableTok{self}\NormalTok{.datas[index]}
+\end{Highlighting}
+\end{Shaded}
+
+    PyTorch中还单独提供了一个\texttt{sampler}模块，用来对数据进行采样。常用的有随机采样器：\texttt{RandomSampler}，当dataloader的\texttt{shuffle}参数为True时，系统会自动调用这个采样器，实现打乱数据。默认的是采用\texttt{SequentialSampler}，它会按顺序一个一个进行采样。这里介绍另外一个很有用的采样方法：
+\texttt{WeightedRandomSampler}，它会根据每个样本的权重选取数据，在样本比例不均衡的问题中，可用它来进行重采样。
+
+构建\texttt{WeightedRandomSampler}时需提供两个参数：每个样本的权重\texttt{weights}、共选取的样本总数\texttt{num\_samples}，以及一个可选参数\texttt{replacement}。权重越大的样本被选中的概率越大，待选取的样本数目一般小于全部的样本数目。\texttt{replacement}用于指定是否可以重复选取某一个样本，默认为True，即允许在一个epoch中重复采样某一个数据。如果设为False，则当某一类的样本被全部选取完，但其样本数目仍未达到num\_samples时，sampler将不会再从该类中选择数据，此时可能导致\texttt{weights}参数失效。下面举例说明。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{dataset} \PY{o}{=} \PY{n}{DogCat}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data/dogcat/}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{transforms}\PY{o}{=}\PY{n}{transform}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} 狗的图片被取出的概率是猫的概率的两倍}
+        \PY{c+c1}{\PYZsh{} 两类图片被取出的概率与weights的绝对大小无关，只和比值有关}
+        \PY{n}{weights} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{2} \PY{k}{if} \PY{n}{label} \PY{o}{==} \PY{l+m+mi}{1} \PY{k}{else} \PY{l+m+mi}{1} \PY{k}{for} \PY{n}{data}\PY{p}{,} \PY{n}{label} \PY{o+ow}{in} \PY{n}{dataset}\PY{p}{]}
+        \PY{n}{weights}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k+kn}{from} \PY{n+nn}{torch}\PY{n+nn}{.}\PY{n+nn}{utils}\PY{n+nn}{.}\PY{n+nn}{data}\PY{n+nn}{.}\PY{n+nn}{sampler} \PY{k}{import}  \PY{n}{WeightedRandomSampler}
+        \PY{n}{sampler} \PY{o}{=} \PY{n}{WeightedRandomSampler}\PY{p}{(}\PY{n}{weights}\PY{p}{,}\PYZbs{}
+                                        \PY{n}{num\PYZus{}samples}\PY{o}{=}\PY{l+m+mi}{9}\PY{p}{,}\PYZbs{}
+                                        \PY{n}{replacement}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+        \PY{n}{dataloader} \PY{o}{=} \PY{n}{DataLoader}\PY{p}{(}\PY{n}{dataset}\PY{p}{,}
+                                \PY{n}{batch\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,}
+                                \PY{n}{sampler}\PY{o}{=}\PY{n}{sampler}\PY{p}{)}
+        \PY{k}{for} \PY{n}{datas}\PY{p}{,} \PY{n}{labels} \PY{o+ow}{in} \PY{n}{dataloader}\PY{p}{:}
+            \PY{n+nb}{print}\PY{p}{(}\PY{n}{labels}\PY{o}{.}\PY{n}{tolist}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsection{计算机视觉工具包：torchvision}\label{ux8ba1ux7b97ux673aux89c6ux89c9ux5de5ux5177ux5305torchvision}
+
+torchvision主要包含三部分：
+
+\begin{itemize}
+\tightlist
+\item
+  models：提供深度学习中各种经典网络的网络结构以及预训练好的模型，包括\texttt{AlexNet}、VGG系列、ResNet系列、Inception系列等。
+\item
+  datasets：
+  提供常用的数据集加载，设计上都是继承\texttt{torhc.utils.data.Dataset}，主要包括\texttt{MNIST}、\texttt{CIFAR10/100}、\texttt{ImageNet}、\texttt{COCO}等。
+\item
+  transforms：提供常用的数据预处理操作，主要包括对Tensor以及PIL
+  Image对象的操作。
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k+kn}{from} \PY{n+nn}{torchvision} \PY{k}{import} \PY{n}{models}
+        \PY{k+kn}{from} \PY{n+nn}{torch} \PY{k}{import} \PY{n}{nn}
+        \PY{c+c1}{\PYZsh{} 加载预训练好的模型，如果不存在会进行下载}
+        \PY{c+c1}{\PYZsh{} 预训练好的模型保存在 \PYZti{}/.torch/models/下面}
+        \PY{n}{resnet34} \PY{o}{=} \PY{n}{models}\PY{o}{.}\PY{n}{resnet34}\PY{p}{(}\PY{n}{pretrained}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{num\PYZus{}classes}\PY{o}{=}\PY{l+m+mi}{1000}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} 修改最后的全连接层为10分类问题（默认是ImageNet上的1000分类）}
+        \PY{n}{resnet34}\PY{o}{.}\PY{n}{fc}\PY{o}{=}\PY{n}{nn}\PY{o}{.}\PY{n}{Linear}\PY{p}{(}\PY{l+m+mi}{512}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k+kn}{from} \PY{n+nn}{torchvision} \PY{k}{import} \PY{n}{datasets}
+        \PY{c+c1}{\PYZsh{} 指定数据集路径为data，如果数据集不存在则进行下载}
+        \PY{c+c1}{\PYZsh{} 通过train=False获取测试集}
+        \PY{n}{dataset} \PY{o}{=} \PY{n}{datasets}\PY{o}{.}\PY{n}{MNIST}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data/}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{download}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{train}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{transform}\PY{o}{=}\PY{n}{transform}\PY{p}{)}
+\end{Verbatim}
+
+
+    Transforms中涵盖了大部分对Tensor和PIL
+Image的常用处理，这些已在上文提到，这里就不再详细介绍。需要注意的是转换分为两步，第一步：构建转换操作，例如\texttt{transf\ =\ transforms.Normalize(mean=x,\ std=y)}，第二步：执行转换操作，例如\texttt{output\ =\ transf(input)}。另外还可将多个处理操作用Compose拼接起来，形成一个处理转换流程。
+
+    \subsection{数据处理中遇到的异常情况}\label{ux6570ux636eux5904ux7406ux4e2dux9047ux5230ux7684ux5f02ux5e38ux60c5ux51b5}
+
+\subsubsection{样本无法读取}\label{ux6837ux672cux65e0ux6cd5ux8bfbux53d6}
+
+在数据处理中，有时会出现某个样本无法读取等问题，比如某张图片损坏。这时在\texttt{\_\_getitem\_\_}函数中将出现异常，此时最好的解决方案即是将出错的样本剔除。如果实在是遇到这种情况无法处理，则可以返回None对象，然后在\texttt{Dataloader}中实现自定义的\texttt{collate\_fn}，将空对象过滤掉。但要注意，在这种情况下dataloader返回的batch数目会少于batch\_size。
+
+简而言之，就是自己写\texttt{collate\_fn}，去除掉每个batch中不合理的数据（比如说第一个图像数据化后第一个元素值\textless{}0）
+方法如下：
+\texttt{python\ def\ my\_collate\_fn(batch):\ \ \ \ \ \textquotesingle{}\textquotesingle{}\textquotesingle{}\ \ \ \ \ batch中每个元素形如(data,\ label)\ \ \ \ \ \textquotesingle{}\textquotesingle{}\textquotesingle{}\ \ \ \ \ \#\ 过滤为None的数据\ \ \ \ \ batch\ =\ list(filter(lambda\ x:x{[}0{]}\ is\ not\ None,\ batch))\ \ \ \ \ if\ len(batch)\ ==\ 0:\ return\ t.Tensor()\ \ \ \ \ return\ default\_collate(batch)\ \#\ 用默认方式拼接过滤后的batch数据}
+再dataloader = DataLoader(dataset, 2, collate\_fn=my\_collate\_fn,
+num\_workers=1,shuffle=True)即可
+
+    对于诸如样本损坏或数据集加载异常等情况，还可以通过其它方式解决。例如但凡遇到异常情况，就随机取一张图片代替：
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{class}\NormalTok{ NewDogCat(DogCat):}
+    \KeywordTok{def} \FunctionTok{__getitem__}\NormalTok{(}\VariableTok{self}\NormalTok{, index):}
+        \ControlFlowTok{try}\NormalTok{:}
+            \ControlFlowTok{return} \BuiltInTok{super}\NormalTok{(NewDogCat, }\VariableTok{self}\NormalTok{).}\FunctionTok{__getitem__}\NormalTok{(index)}
+        \ControlFlowTok{except}\NormalTok{:}
+\NormalTok{            new_index }\OperatorTok{=}\NormalTok{ random.randint(}\DecValTok{0}\NormalTok{, }\BuiltInTok{len}\NormalTok{(}\VariableTok{self}\NormalTok{)}\OperatorTok{-}\DecValTok{1}\NormalTok{)}
+            \ControlFlowTok{return} \VariableTok{self}\NormalTok{[new_index]}
+\end{Highlighting}
+\end{Shaded}
+
+相比较丢弃异常图片而言，这种做法会更好一些，因为它能保证每个batch的数目仍是batch\_size。但在大多数情况下，最好的方式还是对数据进行彻底清洗。
+
+    \subsubsection{程序退出后GPU与内存依然被占用}\label{ux7a0bux5e8fux9000ux51faux540egpuux4e0eux5185ux5b58ux4f9dux7136ux88abux5360ux7528}
+
+使用Python
+\texttt{multiprocessing}库的另一个问题是，在使用多进程时，如果主程序异常终止（比如用Ctrl+C强行退出），相应的数据加载进程可能无法正常退出。这时你可能会发现程序已经退出了，但GPU显存和内存依旧被占用着，或通过\texttt{top}、\texttt{ps\ aux}依旧能够看到已经退出的程序，这时就需要手动强行杀掉进程。建议使用如下命令：
+
+\begin{verbatim}
+ps x | grep <cmdline> | awk '{print $1}' | xargs kill
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{ps\ x}：获取当前用户的所有进程
+\item
+  \texttt{grep\ \textless{}cmdline\textgreater{}}：找到已经停止的PyTorch程序的进程，例如你是通过python
+  train.py启动的，那你就需要写\texttt{grep\ \textquotesingle{}python\ train.py\textquotesingle{}}
+\item
+  \texttt{awk\ \textquotesingle{}\{print\ \$1\}\textquotesingle{}}：获取进程的pid
+\item
+  \texttt{xargs\ kill}：杀掉进程，根据需要可能要写成\texttt{xargs\ kill\ -9}强制杀掉进程
+\end{itemize}
+
+在执行这句命令之前，建议先打印确认一下是否会误杀其它进程
+
+\begin{verbatim}
+ps x | grep <cmdline> | ps x
+\end{verbatim}
+
+    \section{可视化工具}\label{ux53efux89c6ux5316ux5de5ux5177}
+
+\subsection{Tensorboard}\label{tensorboard}
+
+可以使用tensorboard的方法 1. 使用Crayon,但其安装麻烦需要用docker，不推荐
+2.
+使用tensorboard\_logger。但其支持的功能有限，且需要安装tensorflow和tensorboard\_logger，也挺麻烦。
+下载地址：\url{https://github.com/TeamHG-Memex/tensorboard_logger} -
+安装TensorFlow：如果电脑中已经安装完TensorFlow可以跳过这一步，如果电脑中尚未安装，建议安装CPU-Only的版本，具体安装教程参见TensorFlow官网{[}\^{}1{]}，或使用pip直接安装，教育网用户则可通过清华的源提高速度{[}\^{}2{]}。
+-
+安装tensorboard\_logger：可通过\texttt{pip\ install\ tensorboard\_logger}命令直接安装。
+-之后的方法见书
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\item
+  导入一个脚本实现tensorboard只需要安装cpu版的tensorflow，通过pip
+  install
+  tensorflow就能够很快安装上，然后只需要复制这个网址里面的代码到你的项目文件目录，新建一个logger.py的文件，将代码复制进去就ok了。然后在你的python文件里面输入from
+  logger import
+  Logger，然后在训练之前定义好想存放tensorboard文件的文件夹，logger =
+  Logger('./logs')这里可以使用任何文件夹存放tensorboard文件。
+  具体方法\url{https://zhuanlan.zhihu.com/p/27624517}
+\item
+  采用TensorboardX\footnote{https://github.com/lanpa/tensorboard-pytorch}，它封装了更多的Tensorboard接口，支持记录标量，图片，直方图，声音，文本，计算图和embedding等信息，几乎是和TensorFlow的Tensorboard完全一样的功能，使用接口甚至比TensorFlow的Tensorboard接口还要简单。（建议实施这种方法）
+\end{enumerate}
+
+    \subsection{Visdom}\label{visdom}
+
+Visdom可以创造、组织和共享多种数据的可视化，包括数值、图像、文本，甚至是视频，其支持PyTorch、Torch及Numpy。用户可通过编程组织可视化空间，或通过用户接口为生动数据打造仪表板，检查实验结果或调试代码。
+
+Visdom中有两个重要概念： -
+env：环境。不同环境的可视化结果相互隔离，互不影响，在使用时如果不指定env，默认使用\texttt{main}。不同用户、不同程序一般使用不同的env。
+-
+pane：窗格。窗格可用于可视化图像、数值或打印文本等，其可以拖动、缩放、保存和关闭。一个程序中可使用同一个env中的不同pane，每个pane可视化或记录某一信息。
+
+如图4所示，当前env共有两个pane，一个用于打印log，另一个用于记录损失函数的变化。点击clear按钮可以清空当前env的所有pane，点击save按钮可将当前env保存成json文件，保存路径位于\texttt{\textasciitilde{}/.visdom/}目录下。也可修改env的名字后点击fork，保存当前env的状态至更名后的env。
+
+Visdom的安装可通过命令\texttt{pip\ install\ visdom}。安装完成后，需通过\texttt{python\ -m\ visdom.server}命令启动visdom服务，或通过\texttt{nohup\ python\ -m\ visdom.server\ \&}命令将服务放至后台运行。Visdom服务是一个web
+server服务，默认绑定8097端口，客户端与服务器间通过tornado进行非阻塞交互。
+
+Visdom的使用有两点需要注意的地方： -
+需手动指定保存env，可在web界面点击save按钮或在程序中调用save方法，否则visdom服务重启后，env等信息会丢失。
+-
+客户端与服务器之间的交互采用tornado异步框架，可视化操作不会阻塞当前程序，网络异常也不会导致程序退出。
+
+Visdom以Plotly为基础，支持丰富的可视化操作，下面举例说明一些最常用的操作。
+
+    \section{使用GPU加速：CUDA}\label{ux4f7fux7528gpuux52a0ux901fcuda}
+
+相比于对GPU完全透明的Theano而言，在PyTorch中使用GPU较为复杂，但同时这也意味着对GPU资源更加灵活高效的控制。这部分内容在前面介绍Tensor、Module时大都提到过，这里将做一个总结，并深入介绍相关应用。
+
+\subsection{可以采用GPU的数据结构}\label{ux53efux4ee5ux91c7ux7528gpuux7684ux6570ux636eux7ed3ux6784}
+
+在PyTorch中以下数据结构分为CPU和GPU两个版本： - Tensor -
+Variable（包括Parameter） - nn.Module（包括常用的layer、loss
+function，以及容器Sequential等）
+
+它们都带有一个\texttt{.cuda}方法，调用此方法即可将其转为对应的GPU对象。注意，\texttt{tensor.cuda}和\texttt{variable.cuda}都会返回一个新对象，这个新对象的数据已转移至GPU，而之前的tensor/variable的数据还在原来的设备上（CPU）。而\texttt{module.cuda}则会将所有的数据都迁移至GPU，并返回自己。所以\texttt{module\ =\ module.cuda()}和\texttt{module.cuda()}所起的作用一致。
+
+Variable和nn.Module在GPU与CPU之间的转换，本质上还是利用了Tensor在GPU和CPU之间的转换。\texttt{Variable.cuda}操作实际上是将\texttt{variable.data}转移至指定的GPU。而\texttt{nn.Module}的cuda方法是将nn.Module下的所有parameter（包括子module的parameter）都转移至GPU，而Parameter本质上也是Variable。
+
+    关于使用GPU的一些建议： -
+GPU运算很快，但对于很小的运算量来说，并不能体现出它的优势，因此对于一些简单的操作可直接利用CPU完成
+- 数据在CPU和GPU之间，以及GPU与GPU之间的传递会比较耗时，应当尽量避免 -
+在进行低精度的计算时，可以考虑\texttt{HalfTensor}，它相比于\texttt{FloatTensor}能节省一半的显存，但需千万注意数值溢出的情况。
+-
+另外这里需要专门提一下，大部分的损失函数也都属于\texttt{nn.Moudle}，但在使用GPU时，很多时候我们都忘记使用它的\texttt{.cuda}方法，这在大多数情况下不会报错，因为损失函数本身没有可学习的参数（learnable
+parameters）。但在某些情况下会出现问题，为了保险起见同时也为了代码更规范，应记得调用\texttt{criterion.cuda}。下面举例说明。
+
+    \subsection{指定默认使用哪一块GPU}\label{ux6307ux5b9aux9ed8ux8ba4ux4f7fux7528ux54eaux4e00ux5757gpu}
+
+除了调用对象的\texttt{.cuda}方法之外，还可以使用\texttt{torch.cuda.device}，来指定默认使用哪一块GPU，或使用\texttt{torch.set\_default\_tensor\_type}使程序默认使用GPU，不需要手动调用cuda。
+方法： 1. y = t.FloatTensor(2,
+3).cuda()（如果未指定使用哪块GPU，默认使用GPU 0） 2. with
+t.cuda.device(1): （指定默认使用GPU 1） 3. d = t.randn(2,
+3).cuda(0)（指定使用GPU0）
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} 如果未指定使用哪块GPU，默认使用GPU 0}
+        \PY{n}{x} \PY{o}{=} \PY{n}{t}\PY{o}{.}\PY{n}{cuda}\PY{o}{.}\PY{n}{FloatTensor}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} x.get\PYZus{}device() == 0}
+        \PY{n}{y} \PY{o}{=} \PY{n}{t}\PY{o}{.}\PY{n}{FloatTensor}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}\PY{o}{.}\PY{n}{cuda}\PY{p}{(}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} y.get\PYZus{}device() == 0}
+        
+        \PY{c+c1}{\PYZsh{} 指定默认使用GPU 1}
+        \PY{k}{with} \PY{n}{t}\PY{o}{.}\PY{n}{cuda}\PY{o}{.}\PY{n}{device}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}    
+            \PY{c+c1}{\PYZsh{} 在GPU 1上构建tensor}
+            \PY{n}{a} \PY{o}{=} \PY{n}{t}\PY{o}{.}\PY{n}{cuda}\PY{o}{.}\PY{n}{FloatTensor}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}
+        
+            \PY{c+c1}{\PYZsh{} 将tensor转移至GPU 1}
+            \PY{n}{b} \PY{o}{=} \PY{n}{t}\PY{o}{.}\PY{n}{FloatTensor}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}\PY{o}{.}\PY{n}{cuda}\PY{p}{(}\PY{p}{)}
+            \PY{n+nb}{print}\PY{p}{(}\PY{n}{a}\PY{o}{.}\PY{n}{get\PYZus{}device}\PY{p}{(}\PY{p}{)} \PY{o}{==} \PY{n}{b}\PY{o}{.}\PY{n}{get\PYZus{}device}\PY{p}{(}\PY{p}{)} \PY{o}{==} \PY{l+m+mi}{1} \PY{p}{)}
+        
+            \PY{n}{c} \PY{o}{=} \PY{n}{a} \PY{o}{+} \PY{n}{b}
+            \PY{n+nb}{print}\PY{p}{(}\PY{n}{c}\PY{o}{.}\PY{n}{get\PYZus{}device}\PY{p}{(}\PY{p}{)} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{)}
+        
+            \PY{n}{z} \PY{o}{=} \PY{n}{x} \PY{o}{+} \PY{n}{y}
+            \PY{n+nb}{print}\PY{p}{(}\PY{n}{z}\PY{o}{.}\PY{n}{get\PYZus{}device}\PY{p}{(}\PY{p}{)} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{)}
+        
+            \PY{c+c1}{\PYZsh{} 手动指定使用GPU 0}
+            \PY{n}{d} \PY{o}{=} \PY{n}{t}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}\PY{o}{.}\PY{n}{cuda}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+            \PY{n+nb}{print}\PY{p}{(}\PY{n}{d}\PY{o}{.}\PY{n}{get\PYZus{}device}\PY{p}{(}\PY{p}{)} \PY{o}{==} \PY{l+m+mi}{2}\PY{p}{)}
+\end{Verbatim}
+
+
+    如果服务器具有多个GPU，\texttt{tensor.cuda()}方法会将tensor保存到第一块GPU上，等价于\texttt{tensor.cuda(0)}。此时如果想使用第二块GPU，需手动指定\texttt{tensor.cuda(1)}，而这需要修改大量代码，很是繁琐。这里有两种替代方法：
+
+\begin{itemize}
+\tightlist
+\item
+  一种是先调用\texttt{t.cuda.set\_device(1)}指定使用第二块GPU，后续的\texttt{.cuda()}都无需更改，切换GPU只需修改这一行代码。
+\item
+  更推荐的方法是设置环境变量\texttt{CUDA\_VISIBLE\_DEVICES}，例如当\texttt{export\ CUDA\_VISIBLE\_DEVICE=1}（下标是从0开始，1代表第二块GPU），只使用第二块物理GPU，但在程序中这块GPU会被看成是第一块逻辑GPU，因此此时调用\texttt{tensor.cuda()}会将Tensor转移至第二块物理GPU。\texttt{CUDA\_VISIBLE\_DEVICES}还可以指定多个GPU，如\texttt{export\ CUDA\_VISIBLE\_DEVICES=0,2,3}，那么第一、三、四块物理GPU会被映射成第一、二、三块逻辑GPU，\texttt{tensor.cuda(1)}会将Tensor转移到第三块物理GPU上。
+\end{itemize}
+
+设置\texttt{CUDA\_VISIBLE\_DEVICES}有两种方法，一种是在命令行中\texttt{CUDA\_VISIBLE\_DEVICES=0,1\ python\ main.py}，一种是在程序中\texttt{import\ os;os.environ{[}"CUDA\_VISIBLE\_DEVICES"{]}\ =\ "2"}。如果使用IPython或者Jupyter
+notebook，还可以使用\texttt{\%env\ CUDA\_VISIBLE\_DEVICES=1,2}来设置环境变量。
+
+    \section{持久化}\label{ux6301ux4e45ux5316}
+
+在PyTorch中，以下对象可以持久化到硬盘，并能通过相应的方法加载到内存中：
+- Tensor - Variable - nn.Module - Optimizer
+
+本质上上述这些信息最终都是保存成Tensor。Tensor的保存和加载十分的简单，使用t.save和t.load即可完成相应的功能。在save/load时可指定使用的pickle模块，在load时还可将GPU
+tensor映射到CPU或其它GPU上。
+
+我们可以通过\texttt{t.save(obj,\ file\_name)}等方法保存任意可序列化的对象，然后通过\texttt{obj\ =\ t.load(file\_name)}方法加载保存的数据。对于Module和Optimizer对象，这里建议保存对应的\texttt{state\_dict}，而不是直接保存整个Module/Optimizer对象。Optimizer对象保存的主要是参数，以及动量信息，通过加载之前的动量信息，能够有效地减少模型震荡，下面举例说明。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{a} \PY{o}{=} \PY{n}{t}\PY{o}{.}\PY{n}{Tensor}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{)}
+        \PY{k}{if} \PY{n}{t}\PY{o}{.}\PY{n}{cuda}\PY{o}{.}\PY{n}{is\PYZus{}available}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                \PY{n}{a} \PY{o}{=} \PY{n}{a}\PY{o}{.}\PY{n}{cuda}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)} \PY{c+c1}{\PYZsh{} 把a转为GPU1上的tensor,}
+                \PY{n}{t}\PY{o}{.}\PY{n}{save}\PY{p}{(}\PY{n}{a}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{a.pth}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                
+                \PY{c+c1}{\PYZsh{} 加载为b, 存储于GPU1上(因为保存时tensor就在GPU1上)}
+                \PY{n}{b} \PY{o}{=} \PY{n}{t}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{a.pth}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                
+                \PY{c+c1}{\PYZsh{} 加载为c, 存储于CPU}
+                \PY{n}{c} \PY{o}{=} \PY{n}{t}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{a.pth}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{map\PYZus{}location}\PY{o}{=}\PY{k}{lambda} \PY{n}{storage}\PY{p}{,} \PY{n}{loc}\PY{p}{:} \PY{n}{storage}\PY{p}{)}
+                
+                \PY{c+c1}{\PYZsh{} 加载为d, 存储于GPU0上}
+                \PY{n}{d} \PY{o}{=} \PY{n}{t}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{a.pth}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{map\PYZus{}location}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cuda:1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cuda:0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Module对象的保存与加载}
+        \PY{n}{t}\PY{o}{.}\PY{n}{save}\PY{p}{(}\PY{n}{model}\PY{o}{.}\PY{n}{state\PYZus{}dict}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{squeezenet.pth}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{model}\PY{o}{.}\PY{n}{load\PYZus{}state\PYZus{}dict}\PY{p}{(}\PY{n}{t}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{squeezenet.pth}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
